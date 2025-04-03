@@ -138,7 +138,7 @@ export default function Home() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
       <main style={{ maxWidth: '72rem', margin: '0 auto', padding: '2rem' }}>
-        <h1 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Walrus Blob Upload</h1>
+        <h1 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Walrus Blob Upload (WIP)</h1>
         <p style={{ color: '#4B5563', marginBottom: '2rem' }}>
           An example uploading and displaying files with Walrus.
         </p>
