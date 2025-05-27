@@ -1,5 +1,9 @@
 'use client';
 import { useState, useRef } from 'react';
+import { LottieAnimation } from "@/components/lottieAnimation";
+import { montreal, mondwest } from "@/lib/fonts";
+import Link from 'next/link';
+import { ImageUp, Image, ArrowRight } from 'lucide-react';
 
 interface BlobEvent {
   txDigest: string;
@@ -136,172 +140,209 @@ export default function Home() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
-      <main style={{ maxWidth: '72rem', margin: '0 auto', padding: '2rem' }}>
-        <h1 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Walrus Blob Upload (WIP)</h1>
-        <p style={{ color: '#4B5563', marginBottom: '2rem' }}>
-          An example uploading and displaying files with Walrus.
+    <div className={`flex flex-col items-center justify-center gap-4 h-full min-h-[750px] ${montreal.className}`}>
+      <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl bg-[#0d0f1d]">
+        {/* Left half */}
+        <div className="absolute left-0 top-0 h-full md:w-[336px] w-[152px] overflow-hidden [clip-path:inset(0)]">
+          <div
+            className="absolute inset-0 bg-gradient-to-l from-[#0c0f1d] from-30% to-[#0c0f1d00] to-80%"
+            style={{
+              zIndex: 2,
+            }}
+          />
+          <LottieAnimation
+            src="/animations/grid_loop.lottie"
+            autoplay
+            loop
+            layout={{ fit: "cover", align: [0, 0] }}
+            renderConfig={{ autoResize: true }}
+          />
+        </div>
+
+        {/* Right half */}
+        <div className="absolute right-0 top-0 h-full md:w-[336px] w-[152px] overflow-hidden [clip-path:inset(0)]">
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-[#0c0f1d] from-30% to-[#0c0f1d00] to-80%"
+            style={{
+              zIndex: 2,
+            }}
+          />
+          <LottieAnimation
+            src="/animations/grid_loop.lottie"
+            style={{ transform: "rotate(180deg)" }}
+            autoplay
+            loop
+            layout={{ fit: "cover", align: [0.01, 0] }}
+            renderConfig={{ autoResize: true }}
+          />
+        </div>
+      </div>
+      <main className="flex flex-col items-center gap-4">
+        <h1 className={`${mondwest.className} text-7xl mb-4`}>Upload Blob</h1>
+        <p className={`${montreal.className} max-w-[530px] text-[#F7F7F7] mb-8 text-lg text-center`}>
+          Upload blobs to Walrus, and display them on this page. See the <Link href="https://docs.wal.app" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">Walrus documentation</Link> for more information. The file size is limited to 10 MiB on the default publisher. Use the <Link href="https://docs.wal.app/usage/client-cli.html" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">CLI tool</Link> to store bigger files.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Blob Upload Section */}
-          <section>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>Blob Upload</h2>
-            <p style={{ color: '#4B5563', marginBottom: '1rem' }}>
-              Upload blobs to Walrus, and display them on this page. See the{' '}
-              <a href="https://docs.walrus.space" style={{ color: '#3B82F6', textDecoration: 'underline' }} target="_blank" rel="noopener noreferrer">
-                Walrus documentation
-              </a>{' '}
-              for more information. The file size is limited to 10 MiB on the default publisher. Use the{' '}
-              <a href="https://docs.walrus.space/cli" style={{ color: '#3B82F6', textDecoration: 'underline' }} target="_blank" rel="noopener noreferrer">
-                CLI tool
-              </a>{' '}
-              to store bigger files.
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <section className='w-full max-w-[550px]'>
+            <div className="flex flex-col gap-4">
               <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>
+                <label className="block text-sm font-medium mb-1">
                   Walrus publisher URL
                 </label>
                 <input
                   type="text"
-                  style={{ width: '100%', padding: '0.5rem', border: '1px solid #E5E7EB', borderRadius: '0.375rem' }}
+                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md"
                   value={publisherUrl}
                   onChange={(e) => setPublisherUrl(e.target.value)}
-                  placeholder="https://publisher.testnet.walrus.atalma.io"
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>
+                <label className="block text-sm font-medium mb-1">
                   Walrus aggregator URL
                 </label>
                 <input
                   type="text"
-                  style={{ width: '100%', padding: '0.5rem', border: '1px solid #E5E7EB', borderRadius: '0.375rem' }}
+                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md"
                   value={aggregatorUrl}
                   onChange={(e) => setAggregatorUrl(e.target.value)}
-                  placeholder="https://aggregator.testnet.walrus.atalma.io"
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>
-                  Blob to upload <span style={{ color: '#6B7280' }}>(Max 10 MiB size on the default publisher!)</span>
+                <label className="block text-sm font-medium mb-1">
+                  Blob to upload
                 </label>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  style={{ width: '100%', padding: '0.5rem', border: '1px solid #E5E7EB', borderRadius: '0.375rem', backgroundColor: 'white' }}
-                  onChange={(e) => {
-                    const selectedFile = e.target.files?.[0];
-                    if (selectedFile) {
-                      const fileError = validateFile(selectedFile);
-                      if (fileError) {
-                        setError(fileError);
-                        setFile(null);
-                      } else {
-                        setError(null);
-                        setFile(selectedFile);
-                      }
-                    }
-                  }}
-                />
-                {error && <p style={{ color: '#EF4444', fontSize: '0.875rem', marginTop: '0.25rem' }}>{error}</p>}
+                <div className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md">
+                  <div className="relative">
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer [&::-webkit-file-upload-button]:hidden [&::file-selector-button]:hidden"
+                      onChange={(e) => {
+                        const selectedFile = e.target.files?.[0];
+                        if (selectedFile) {
+                          const fileError = validateFile(selectedFile);
+                          if (fileError) {
+                            setError(fileError);
+                            setFile(null);
+                          } else {
+                            setError(null);
+                            setFile(selectedFile);
+                          }
+                        }
+                      }}
+                    />
+                    <div className="w-full p-2 border border-2 border-[#97F0E599] border-dashed rounded-md flex items-center justify-center min-h-[100px]">
+                      {file ? (
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <Image size={56} strokeWidth={1} className="text-[#97F0E5]" />
+                          <p className="text-[#F7F7F7]">{file.name}</p>
+                          <p className="text-sm text-[#F7F7F7]">{(file.size / (1024 * 1024)).toFixed(2)} MiB</p>
+                          <button className="border border-[#C684F6] rounded-md px-2 py-1 text-sm text-[#C684F6]">
+                            CHOOSE FILE
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <ImageUp size={56} strokeWidth={1} className="text-[#97F0E5]" />
+                          <p className="text-[#FFFFFF]">Drag & drop a file</p>
+                          <p className="text-sm text-[#F7F7F7]">Max 10 MiB size on the default publisher.</p>
+                          <button className="border border-[#C684F6] rounded-md px-2 py-1 text-sm text-[#C684F6]">
+                            CHOOSE FILE
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>
+                <label className="block text-sm font-medium mb-1">
                   Epochs
                 </label>
                 <input
                   type="number"
-                  style={{ width: '100%', padding: '0.5rem', border: '1px solid #E5E7EB', borderRadius: '0.375rem' }}
+                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md"
                   value={epochs}
                   onChange={(e) => setEpochs(Math.max(1, Number(e.target.value)))}
                   min="1"
                 />
-                <p style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                <p className="text-sm opacity-50 text-[#F7F7F7] mt-1">
                   The number of Walrus epochs for which to store the blob.
                 </p>
               </div>
 
               <button 
-                style={{
-                  width: '100%',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.375rem',
-                  transition: 'background-color 0.2s',
-                  backgroundColor: isLoading || !file ? '#9CA3AF' : '#3B82F6',
-                  color: 'white',
-                  cursor: isLoading || !file ? 'not-allowed' : 'pointer',
-                }}
+                className={`text-[#0C0F1D] w-full py-2 px-4 rounded-md transition-colors duration-200 ${
+                  isLoading || !file 
+                    ? 'bg-[#97F0E5]/50 cursor-not-allowed' 
+                    : 'bg-[#97F0E5] hover:bg-[#97F0E5]/80 cursor-pointer'
+                }`}
                 onClick={onUpload}
-                disabled={isLoading || !file}
               >
-                {isLoading ? 'Uploading...' : 'Upload'}
+                {
+                  isLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      Uploading...
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2">
+                      <span>Upload</span>
+                      <ArrowRight size={16} strokeWidth={1} />
+                    </div>
+                  )
+                }
               </button>
             </div>
           </section>
 
           {/* Uploaded Blobs Section */}
           {uploadedBlobs.length > 0 && (
-            <section>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>Uploaded Blobs</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <section className='w-full max-w-[550px]'>
+              <h2 className="text-2xl font-semibold mb-4">Uploaded Blobs</h2>
+              <div className="flex flex-col gap-4">
                 {uploadedBlobs.map((blob) => (
-                  <div key={blob.blobId} style={{ border: '1px solid #E5E7EB', borderRadius: '0.5rem', padding: '1rem' }}>
-                    <div style={{ aspectRatio: '16/9', position: 'relative', marginBottom: '1rem', backgroundColor: '#F3F4F6', borderRadius: '0.375rem', overflow: 'hidden' }}>
+                  <div key={blob.blobId} className="border border-gray-200 rounded-lg p-4">
+                    <div className="aspect-video relative mb-4 bg-gray-100 rounded-md overflow-hidden">
                       <img
                         src={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
                         alt="Uploaded content"
-                        style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                        className="object-contain w-full h-full"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFNUU1RTUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI0FBQUFBQSIgZm9udC1zaXplPSIxNiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiPk5vIGltYWdlPC90ZXh0Pjwvc3ZnPg==';
                         }}
                       />
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div className="flex flex-col gap-2">
                       <div>
-                        <span style={{ fontWeight: '500' }}>Status:</span>
-                        <span style={{ marginLeft: '0.5rem' }}>{blob.status}</span>
+                        <span className="font-medium">Status:</span>
+                        <span className="ml-2">{blob.status}</span>
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ fontWeight: '500' }}>Blob ID:</span>
-                        <span style={{ 
-                          color: '#4B5563', 
-                          wordBreak: 'break-all',
-                          fontSize: '0.875rem',
-                          marginTop: '0.25rem'
-                        }}>{blob.blobId}</span>
+                      <div className="flex flex-col">
+                        <span className="font-medium">Blob ID:</span>
+                        <span className="text-gray-600 break-all text-sm mt-1">{blob.blobId}</span>
                       </div>
                       {blob.status === 'Already certified' && blob.previousEvent && (
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <span style={{ fontWeight: '500' }}>Previous Sui Certified Event:</span>
-                          <span style={{ 
-                            color: '#4B5563',
-                            wordBreak: 'break-all',
-                            fontSize: '0.875rem',
-                            marginTop: '0.25rem'
-                          }}>{blob.previousEvent.txDigest}</span>
+                        <div className="flex flex-col">
+                          <span className="font-medium">Previous Sui Certified Event:</span>
+                          <span className="text-gray-600 break-all text-sm mt-1">{blob.previousEvent.txDigest}</span>
                         </div>
                       )}
                       {blob.status === 'Newly created' && blob.suiObject && (
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <span style={{ fontWeight: '500' }}>Associated Sui Object:</span>
-                          <span style={{ 
-                            color: '#4B5563',
-                            wordBreak: 'break-all',
-                            fontSize: '0.875rem',
-                            marginTop: '0.25rem'
-                          }}>{blob.suiObject}</span>
+                        <div className="flex flex-col">
+                          <span className="font-medium">Associated Sui Object:</span>
+                          <span className="text-gray-600 break-all text-sm mt-1">{blob.suiObject}</span>
                         </div>
                       )}
                       <div>
-                        <span style={{ fontWeight: '500' }}>Stored until epoch:</span>
-                        <span style={{ marginLeft: '0.5rem', color: '#4B5563' }}>{blob.endEpoch}</span>
+                        <span className="font-medium">Stored until epoch:</span>
+                        <span className="ml-2 text-gray-600">{blob.endEpoch}</span>
                       </div>
                     </div>
                   </div>
