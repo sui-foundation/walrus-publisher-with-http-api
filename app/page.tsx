@@ -270,8 +270,9 @@ export default function Home() {
                   type="number"
                   className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
                   value={epochs}
-                  onChange={(e) => setEpochs(Math.max(1, Number(e.target.value)))}
+                  onChange={(e) => setEpochs(Math.max(1, Math.floor(Number(e.target.value))))}
                   min="1"
+                  step="1"
                 />
                 <p className="text-sm opacity-50 text-[#F7F7F7] mt-1">
                   The number of Walrus epochs for which to store the blob.
