@@ -178,15 +178,15 @@ export default function Home() {
           />
         </div>
       </div>
-      <main className="flex flex-col items-center gap-4">
-        <h1 className={`${mondwest.className} text-7xl mb-4`}>Upload Blob</h1>
-        <p className={`${montreal.className} max-w-[530px] text-[#F7F7F7] mb-8 text-lg text-center`}>
+      <main className="flex flex-col items-center gap-4 mt-16 mb-8">
+        <h1 className={`${mondwest.className} text-7xl`}>Upload Blob</h1>
+        <p className={`${montreal.className} max-w-[530px] text-[#F7F7F7] text-lg text-center`}>
           Upload blobs to Walrus, and display them on this page. See the <Link href="https://docs.wal.app" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">Walrus documentation</Link> for more information. The file size is limited to 10 MiB on the default publisher. Use the <Link href="https://docs.wal.app/usage/client-cli.html" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">CLI tool</Link> to store bigger files.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className={`grid ${uploadedBlobs.length > 0 ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'} gap-8 w-full max-w-[1200px]`}>
           {/* Blob Upload Section */}
-          <section className='w-full max-w-[550px]'>
+          <section className={`w-full ${uploadedBlobs.length > 0 ? 'max-w-[550px]' : 'max-w-[550px] mx-auto'}`}>
             <div className="flex flex-col gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">
