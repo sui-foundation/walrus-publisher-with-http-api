@@ -307,19 +307,31 @@ export default function Home() {
             <section className='w-full max-w-[550px]'>
               <h2 className="text-2xl font-semibold mb-4">Uploaded Blobs</h2>
               <div className="flex flex-col gap-4">
-                {uploadedBlobs.map((blob) => (
-                  <ImageCard
-                    key={blob.blobId}
-                    blobId={blob.blobId}
-                    endEpoch={blob.endEpoch}
-                    imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
-                    status={blob.status === 'Newly created' ? 'newly created' : 'already certified'}
-                    {...(blob.status === 'Newly created' 
-                      ? { suiObjectId: blob.suiObject! }
-                      : { suiEventId: blob.previousEvent!.txDigest }
-                    )}
-                  />
-                ))}
+                {uploadedBlobs.map((blob) => {
+                  if (blob.status === 'Newly created') {
+                    return (
+                      <ImageCard
+                        key={blob.blobId}
+                        blobId={blob.blobId}
+                        endEpoch={blob.endEpoch}
+                        imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                        status="newly created"
+                        suiObjectId={blob.suiObject!}
+                      />
+                    );
+                  } else {
+                    return (
+                      <ImageCard
+                        key={blob.blobId}
+                        blobId={blob.blobId}
+                        endEpoch={blob.endEpoch}
+                        imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                        status="already certified"
+                        suiEventId={blob.previousEvent!.txDigest}
+                      />
+                    );
+                  }
+                })}
               </div>
             </section>
           )}

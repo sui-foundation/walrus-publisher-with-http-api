@@ -36,11 +36,11 @@ export const ImageCard = (props: ImageCardProps) => {
           <div className="w-[157px] flex items-center">
             {
               props.status === 'newly created' ? (
-                <span className="uppercase bg-[#B09F0729] rounded-sm text-[#B09F07] text-sm font-medium text-left px-2 py-0.5">
+                <span className="uppercase bg-[#B09F0729] rounded-sm text-[#B09F07] text-sm font-medium text-left px-2 py-0.5 whitespace-nowrap">
                   {props.status}
                 </span>
               ) : (
-                <span className="uppercase bg-[#07B09A29] rounded-sm text-[#07B09A] text-sm font-medium text-left px-2 py-0.5">
+                <span className="uppercase bg-[#07B09A29] rounded-sm text-[#07B09A] text-sm font-medium text-left px-2 py-0.5 whitespace-nowrap">
                   {props.status}
                 </span>
               )
