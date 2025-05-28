@@ -60,7 +60,7 @@ export const ImageCard = (props: ImageCardProps) => {
           />
         )}
       </div>
-      <div className="flex flex-col items-start gap-1">
+      <div className="h-[142px] flex flex-col items-center justify-between">
         <div className="w-[314px] h-[34px] bg-[#97F0E514] flex flex-row items-center justify-between rounded-t-lg rounded-b-none px-2">
           <span className="text-[#F7F7F7] text-sm font-medium w-[157px] text-left">
             Status
