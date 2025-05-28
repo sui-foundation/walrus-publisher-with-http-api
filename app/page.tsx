@@ -194,7 +194,7 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
-                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md"
+                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
                   value={publisherUrl}
                   onChange={(e) => setPublisherUrl(e.target.value)}
                 />
@@ -206,7 +206,7 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
-                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md"
+                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
                   value={aggregatorUrl}
                   onChange={(e) => setAggregatorUrl(e.target.value)}
                 />
@@ -221,7 +221,7 @@ export default function Home() {
                     <input
                       type="file"
                       ref={fileInputRef}
-                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer [&::-webkit-file-upload-button]:hidden [&::file-selector-button]:hidden"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer [&::-webkit-file-upload-button]:hidden [&::file-selector-button]:hidden focus:outline-none focus:ring-0"
                       onChange={(e) => {
                         const selectedFile = e.target.files?.[0];
                         if (selectedFile) {
@@ -268,7 +268,7 @@ export default function Home() {
                 </label>
                 <input
                   type="number"
-                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md"
+                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
                   value={epochs}
                   onChange={(e) => setEpochs(Math.max(1, Number(e.target.value)))}
                   min="1"
