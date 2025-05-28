@@ -305,33 +305,38 @@ export default function Home() {
           {/* Uploaded Blobs Section */}
           {uploadedBlobs.length > 0 && (
             <section className='w-full max-w-[550px]'>
-              <h2 className="">Uploads <span className='opacity-50 '>{uploadedBlobs.length}</span></h2>
-              <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-                {uploadedBlobs.map((blob) => {
-                  if (blob.status === 'Newly created') {
-                    return (
-                      <ImageCard
-                        key={blob.blobId}
-                        blobId={blob.blobId}
-                        endEpoch={blob.endEpoch}
-                        imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
-                        status="newly created"
-                        suiObjectId={blob.suiObject!}
-                      />
-                    );
-                  } else {
-                    return (
-                      <ImageCard
-                        key={blob.blobId}
-                        blobId={blob.blobId}
-                        endEpoch={blob.endEpoch}
-                        imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
-                        status="already certified"
-                        suiEventId={blob.previousEvent!.txDigest}
-                      />
-                    );
-                  }
-                })}
+              <h2>Uploads <span className='opacity-50 '>{uploadedBlobs.length}</span></h2>
+              <div className="relative">
+                <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                  {uploadedBlobs.map((blob) => {
+                    if (blob.status === 'Newly created') {
+                      return (
+                        <ImageCard
+                          key={blob.blobId}
+                          blobId={blob.blobId}
+                          endEpoch={blob.endEpoch}
+                          imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                          status="newly created"
+                          suiObjectId={blob.suiObject!}
+                        />
+                      );
+                    } else {
+                      return (
+                        <ImageCard
+                          key={blob.blobId}
+                          blobId={blob.blobId}
+                          endEpoch={blob.endEpoch}
+                          imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                          status="already certified"
+                          suiEventId={blob.previousEvent!.txDigest}
+                        />
+                      );
+                    }
+                  })}
+                </div>
+                {uploadedBlobs.length >= 4 && (
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0d0f1d] to-transparent pointer-events-none" />
+                )}
               </div>
             </section>
           )}
