@@ -305,8 +305,8 @@ export default function Home() {
           {/* Uploaded Blobs Section */}
           {uploadedBlobs.length > 0 && (
             <section className='w-full max-w-[550px]'>
-              <h2 className="text-2xl font-semibold mb-4">Uploaded Blobs</h2>
-              <div className="flex flex-col gap-4">
+              <h2 className="">Uploads <span className='opacity-50 '>{uploadedBlobs.length}</span></h2>
+              <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                 {uploadedBlobs.map((blob) => {
                   if (blob.status === 'Newly created') {
                     return (
