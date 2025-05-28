@@ -4,6 +4,7 @@ import { LottieAnimation } from "@/components/lottieAnimation";
 import { montreal, mondwest } from "@/lib/fonts";
 import Link from 'next/link';
 import { ImageUp, Image, ArrowRight } from 'lucide-react';
+import { ImageCard } from '@/components/imageCard';
 
 interface BlobEvent {
   txDigest: string;
@@ -307,45 +308,17 @@ export default function Home() {
               <h2 className="text-2xl font-semibold mb-4">Uploaded Blobs</h2>
               <div className="flex flex-col gap-4">
                 {uploadedBlobs.map((blob) => (
-                  <div key={blob.blobId} className="border border-gray-200 rounded-lg p-4">
-                    <div className="aspect-video relative mb-4 bg-gray-100 rounded-md overflow-hidden">
-                      <img
-                        src={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
-                        alt="Uploaded content"
-                        className="object-contain w-full h-full"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFNUU1RTUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI0FBQUFBQSIgZm9udC1zaXplPSIxNiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiPk5vIGltYWdlPC90ZXh0Pjwvc3ZnPg==';
-                        }}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <div>
-                        <span className="font-medium">Status:</span>
-                        <span className="ml-2">{blob.status}</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-medium">Blob ID:</span>
-                        <span className="text-gray-600 break-all text-sm mt-1">{blob.blobId}</span>
-                      </div>
-                      {blob.status === 'Already certified' && blob.previousEvent && (
-                        <div className="flex flex-col">
-                          <span className="font-medium">Previous Sui Certified Event:</span>
-                          <span className="text-gray-600 break-all text-sm mt-1">{blob.previousEvent.txDigest}</span>
-                        </div>
-                      )}
-                      {blob.status === 'Newly created' && blob.suiObject && (
-                        <div className="flex flex-col">
-                          <span className="font-medium">Associated Sui Object:</span>
-                          <span className="text-gray-600 break-all text-sm mt-1">{blob.suiObject}</span>
-                        </div>
-                      )}
-                      <div>
-                        <span className="font-medium">Stored until epoch:</span>
-                        <span className="ml-2 text-gray-600">{blob.endEpoch}</span>
-                      </div>
-                    </div>
-                  </div>
+                  <ImageCard
+                    key={blob.blobId}
+                    blobId={blob.blobId}
+                    endEpoch={blob.endEpoch}
+                    imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                    status={blob.status === 'Newly created' ? 'newly created' : 'already certified'}
+                    {...(blob.status === 'Newly created' 
+                      ? { suiObjectId: blob.suiObject! }
+                      : { suiEventId: blob.previousEvent!.txDigest }
+                    )}
+                  />
                 ))}
               </div>
             </section>
