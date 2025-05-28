@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { ImageIcon } from "lucide-react";
 
 /** Base properties shared between all image card types */
 type BaseImageCardProps = {
@@ -24,10 +26,40 @@ type AlreadyCertifiedImageCardProps = BaseImageCardProps & {
 export type ImageCardProps = NewlyCreatedImageCardProps | AlreadyCertifiedImageCardProps;
 
 export const ImageCard = (props: ImageCardProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    console.log(`[ImageCard ${props.blobId}] Initial state:`, { isLoading, hasError });
+  }, []);
 
   return (
     <div className="w-[480px] h-[158px] bg-[#0C0F1D] rounded-2xl border border-2 border-[#97F0E533] flex flex-row items-center justify-center gap-2">
-      <Image src={props.imageUrl} alt={`uploaded image: ${props.blobId}`} className="rounded-lg" width={142} height={142} />
+      <div className="w-[142px] h-[142px] relative">
+        {hasError ? (
+          <div className="w-full h-full bg-[#97F0E514] rounded-lg flex items-center justify-center">
+            <ImageIcon className="w-12 h-12 text-[#97F0E5]" strokeWidth={1} />
+          </div>
+        ) : (
+          <Image 
+            src={props.imageUrl} 
+            alt={`uploaded image: ${props.blobId}`} 
+            className="rounded-lg" 
+            width={142} 
+            height={142}
+            placeholder="empty"
+            onLoad={() => {
+              console.log(`[ImageCard ${props.blobId}] Image loaded successfully`);
+              setIsLoading(false);
+            }}
+            onError={(e) => {
+              console.error(`[ImageCard ${props.blobId}] Image failed to load:`, e);
+              setIsLoading(false);
+              setHasError(true);
+            }}
+          />
+        )}
+      </div>
       <div className="flex flex-col items-start gap-1">
         <div className="w-[314px] h-[34px] bg-[#97F0E514] flex flex-row items-center justify-between rounded-t-lg rounded-b-none px-2">
           <span className="text-[#F7F7F7] text-sm font-medium w-[157px] text-left">
