@@ -34,7 +34,7 @@ export const ImageCard = (props: ImageCardProps) => {
   }, []);
 
   return (
-    <div className="w-[480px] h-[158px] bg-[#0C0F1D] rounded-2xl border border-2 border-[#97F0E533] flex flex-row items-center justify-center gap-2">
+    <div className="w-[480px] h-full max-h-[158px] min-h-[158px] bg-[#0C0F1D] rounded-2xl border border-2 border-[#97F0E533] flex flex-row items-center justify-center gap-2">
       <div className="w-[142px] h-[142px] relative">
         {hasError ? (
           <div className="w-full h-full bg-[#97F0E514] rounded-lg flex items-center justify-center">
