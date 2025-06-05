@@ -35,7 +35,7 @@ export const ImageCard = (props: ImageCardProps) => {
 
   return (
     <div className="w-[480px] h-full max-h-[158px] min-h-[158px] bg-[#0C0F1D] rounded-2xl border border-2 border-[#97F0E533] flex flex-row items-center justify-center gap-2">
-      <div className="w-[142px] h-[142px] relative">
+      <div className="w-[142px] h-[142px] relative rounded-lg overflow-hidden">
         {hasError ? (
           <div className="w-full h-full bg-[#97F0E514] rounded-lg flex items-center justify-center">
             <ImageIcon className="w-12 h-12 text-[#97F0E5]" strokeWidth={1} />
@@ -44,7 +44,6 @@ export const ImageCard = (props: ImageCardProps) => {
           <Image 
             src={props.imageUrl} 
             alt={`uploaded image: ${props.blobId}`} 
-            className="rounded-lg" 
             width={142} 
             height={142}
             placeholder="empty"
