@@ -62,7 +62,7 @@ export default function Home() {
   const [publisherUrl, setPublisherUrl] = useState('https://publisher.walrus-testnet.walrus.space');
   const [aggregatorUrl, setAggregatorUrl] = useState('https://aggregator.walrus-testnet.walrus.space');
   const [file, setFile] = useState<File | null>(null);
-  const [epochs, setEpochs] = useState(1);
+  const [epochs, setEpochs] = useState(53);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploadedBlobs, setUploadedBlobs] = useState<UploadedBlob[]>([]);
@@ -270,12 +270,13 @@ export default function Home() {
                   type="number"
                   className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
                   value={epochs}
-                  onChange={(e) => setEpochs(Math.max(1, Math.floor(Number(e.target.value))))}
+                  onChange={(e) => setEpochs(Math.min(53, Math.max(1, Math.floor(Number(e.target.value)))))}
                   min="1"
+                  max="53"
                   step="1"
                 />
                 <p className="text-sm opacity-50 text-[#F7F7F7] mt-1">
-                  The number of Walrus epochs for which to store the blob.
+                  The number of Walrus epochs for which to store the blob (max 53).
                 </p>
               </div>
 
