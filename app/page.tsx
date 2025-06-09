@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import { LottieAnimation } from "@/components/lottieAnimation";
 import { montreal, mondwest } from "@/lib/fonts";
 import Link from 'next/link';
-import { ImageUp, Image, ArrowRight } from 'lucide-react';
+import { ImageUp, Image, ArrowRight, ChevronDown } from 'lucide-react';
 import { ImageCard } from '@/components/imageCard';
 
 interface BlobEvent {
@@ -61,6 +61,7 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MiB in bytes
 export default function Home() {
   const [publisherUrl, setPublisherUrl] = useState('https://publisher.walrus-testnet.walrus.space');
   const [aggregatorUrl, setAggregatorUrl] = useState('https://aggregator.walrus-testnet.walrus.space');
+  const [showUrls, setShowUrls] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [epochs, setEpochs] = useState(53);
   const [isLoading, setIsLoading] = useState(false);
@@ -190,30 +191,6 @@ export default function Home() {
             <div className="flex flex-col gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Walrus publisher URL
-                </label>
-                <input
-                  type="text"
-                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
-                  value={publisherUrl}
-                  onChange={(e) => setPublisherUrl(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Walrus aggregator URL
-                </label>
-                <input
-                  type="text"
-                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
-                  value={aggregatorUrl}
-                  onChange={(e) => setAggregatorUrl(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1">
                   Blob to upload
                 </label>
                 <div className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md">
@@ -262,22 +239,62 @@ export default function Home() {
                 {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Epochs
-                </label>
-                <input
-                  type="number"
-                  className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
-                  value={epochs}
-                  onChange={(e) => setEpochs(Math.min(53, Math.max(1, Math.floor(Number(e.target.value)))))}
-                  min="1"
-                  max="53"
-                  step="1"
-                />
-                <p className="text-sm opacity-50 text-[#F7F7F7] mt-1">
-                  The number of Walrus epochs for which to store the blob (max 53).
-                </p>
+              <div className="w-full">
+                <button
+                  onClick={() => setShowUrls(!showUrls)}
+                  className="flex items-center gap-2 text-sm text-[#F7F7F7] hover:text-[#97F0E5] transition-colors"
+                >
+                  <ChevronDown
+                    size={16}
+                    className={`transform transition-transform ${showUrls ? 'rotate-180' : ''}`}
+                  />
+                  Advanced Settings
+                </button>
+                {showUrls && (
+                  <div className="mt-2 space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Walrus publisher URL
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
+                        value={publisherUrl}
+                        onChange={(e) => setPublisherUrl(e.target.value)}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Walrus aggregator URL
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
+                        value={aggregatorUrl}
+                        onChange={(e) => setAggregatorUrl(e.target.value)}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Epochs
+                      </label>
+                      <input
+                        type="number"
+                        className="w-full p-2 bg-[#0C0F1D] border-2 border-[#97F0E599] rounded-md focus:outline-none focus:ring-0 focus:border-[#97F0E5]"
+                        value={epochs}
+                        onChange={(e) => setEpochs(Math.min(53, Math.max(1, Math.floor(Number(e.target.value)))))}
+                        min="1"
+                        max="53"
+                        step="1"
+                      />
+                      <p className="text-sm opacity-50 text-[#F7F7F7] mt-1">
+                        The number of Walrus epochs for which to store the blob (max 53).
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <button 
