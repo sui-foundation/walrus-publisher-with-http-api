@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
-import { LottieAnimation } from "@/components/lottieAnimation";
+import { AnimationBackground } from "@/components/AnimationBackground";
 import { montreal, mondwest } from "@/lib/fonts";
 import Link from 'next/link';
 import { ImageUp, Image, ArrowRight, ChevronDown } from 'lucide-react';
@@ -143,51 +143,16 @@ export default function Home() {
 
   return (
     <div className={`flex flex-col items-center justify-center gap-4 h-full min-h-[750px] ${montreal.className}`}>
-      <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl bg-[#0d0f1d]">
-        {/* Left half */}
-        <div className="absolute left-0 top-0 h-full md:w-[336px] w-[152px] overflow-hidden [clip-path:inset(0)]">
-          <div
-            className="absolute inset-0 bg-gradient-to-l from-[#0c0f1d] from-30% to-[#0c0f1d00] to-80%"
-            style={{
-              zIndex: 2,
-            }}
-          />
-          <LottieAnimation
-            src="/animations/grid_loop.lottie"
-            autoplay
-            loop
-            layout={{ fit: "cover", align: [0, 0] }}
-            renderConfig={{ autoResize: true }}
-          />
-        </div>
-
-        {/* Right half */}
-        <div className="absolute right-0 top-0 h-full md:w-[336px] w-[152px] overflow-hidden [clip-path:inset(0)]">
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-[#0c0f1d] from-30% to-[#0c0f1d00] to-80%"
-            style={{
-              zIndex: 2,
-            }}
-          />
-          <LottieAnimation
-            src="/animations/grid_loop.lottie"
-            style={{ transform: "rotate(180deg)" }}
-            autoplay
-            loop
-            layout={{ fit: "cover", align: [0.01, 0] }}
-            renderConfig={{ autoResize: true }}
-          />
-        </div>
-      </div>
+      <AnimationBackground />
       <main className="flex flex-col items-center gap-4 mt-16 mb-8">
         <h1 className={`${mondwest.className} text-5xl md:text-7xl`}>Upload Blob</h1>
         <p className={`${montreal.className} max-w-[530px] text-[#F7F7F7] mb-4 text-lg text-center`}>
           Upload blobs to Walrus, and display them on this page. See the <Link href="https://docs.wal.app" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">Walrus documentation</Link> for more information. The file size is limited to 10 MiB on the default publisher. Use the <Link href="https://docs.wal.app/usage/client-cli.html" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">CLI tool</Link> to store bigger files.
         </p>
 
-        <div className={`grid ${uploadedBlobs.length > 0 ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1'} gap-8 w-full max-w-[1200px]`}>
+        <div className={`grid grid-cols-1 xl:grid-cols-2 gap-8 w-full max-w-[1200px]`}>
           {/* Blob Upload Section */}
-          <section className={`w-full ${uploadedBlobs.length > 0 ? 'max-w-[550px]' : 'max-w-[550px] mx-auto'}`}>
+          <section className={`w-full max-w-[550px]`}>
             <div className="flex flex-col gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">
@@ -322,43 +287,41 @@ export default function Home() {
           </section>
 
           {/* Uploaded Blobs Section */}
-          {uploadedBlobs.length > 0 && (
-            <section className='w-full max-w-[550px]'>
-              <h2>Uploads <span className='opacity-50 '>{uploadedBlobs.length}</span></h2>
-              <div className="relative">
-                <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-                  {uploadedBlobs.map((blob) => {
-                    if (blob.status === 'Newly created') {
-                      return (
-                        <ImageCard
-                          key={blob.blobId}
-                          blobId={blob.blobId}
-                          endEpoch={blob.endEpoch}
-                          imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
-                          status="newly created"
-                          suiObjectId={blob.suiObject!}
-                        />
-                      );
-                    } else {
-                      return (
-                        <ImageCard
-                          key={blob.blobId}
-                          blobId={blob.blobId}
-                          endEpoch={blob.endEpoch}
-                          imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
-                          status="already certified"
-                          suiEventId={blob.previousEvent!.txDigest}
-                        />
-                      );
-                    }
-                  })}
-                </div>
-                {uploadedBlobs.length >= 4 && (
-                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0d0f1d] to-transparent pointer-events-none" />
-                )}
+          <section className='w-full max-w-[550px]'>
+            <h2>Uploads <span className='opacity-50 '>{uploadedBlobs.length}</span></h2>
+            <div className="relative">
+              <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                {uploadedBlobs.map((blob) => {
+                  if (blob.status === 'Newly created') {
+                    return (
+                      <ImageCard
+                        key={blob.blobId}
+                        blobId={blob.blobId}
+                        endEpoch={blob.endEpoch}
+                        imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                        status="newly created"
+                        suiObjectId={blob.suiObject!}
+                      />
+                    );
+                  } else {
+                    return (
+                      <ImageCard
+                        key={blob.blobId}
+                        blobId={blob.blobId}
+                        endEpoch={blob.endEpoch}
+                        imageUrl={`${aggregatorUrl}/v1/blobs/${blob.blobId}`}
+                        status="already certified"
+                        suiEventId={blob.previousEvent!.txDigest}
+                      />
+                    );
+                  }
+                })}
               </div>
-            </section>
-          )}
+              {uploadedBlobs.length >= 4 && (
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0d0f1d] to-transparent pointer-events-none" />
+              )}
+            </div>
+          </section>
         </div>
       </main>
     </div>
