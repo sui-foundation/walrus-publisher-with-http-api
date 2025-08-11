@@ -150,7 +150,7 @@ export default function Home() {
           Upload blobs to Walrus, and display them on this page. See the <Link href="https://docs.wal.app" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">Walrus documentation</Link> for more information. The file size is limited to 10 MiB on the default publisher. Use the <Link href="https://docs.wal.app/usage/client-cli.html" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">CLI tool</Link> to store bigger files.
         </p>
 
-        <div className={`grid grid-cols-1 xl:grid-cols-2 gap-8 w-full max-w-[1200px]`}>
+        <div className={`grid grid-cols-1 gap-8 w-full max-w-[1200px]`}>
           {/* Blob Upload Section */}
           <section className={`w-full max-w-[550px]`}>
             <div className="flex flex-col gap-4">
