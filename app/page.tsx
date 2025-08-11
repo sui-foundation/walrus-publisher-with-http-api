@@ -1,7 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
 import { AnimationBackground } from "@/components/AnimationBackground";
-import { montreal, mondwest } from "@/lib/fonts";
 import Link from 'next/link';
 import { ImageUp, Image, ArrowRight, ChevronDown } from 'lucide-react';
 import { ImageCard } from '@/components/imageCard';
@@ -142,11 +141,11 @@ export default function Home() {
   };
 
   return (
-    <div className={`flex flex-col items-center justify-center gap-4 h-full min-h-[750px] ${montreal.className}`}>
+    <div className={`flex flex-col items-center justify-center gap-4 h-full min-h-[750px] font-montreal`}>
       <AnimationBackground />
       <main className="flex flex-col items-center gap-4 mt-16 mb-8">
-        <h1 className={`${mondwest.className} text-5xl md:text-7xl`}>Upload Blob</h1>
-        <p className={`${montreal.className} max-w-[530px] text-[#F7F7F7] mb-4 text-lg text-center`}>
+        <h1 className={`font-mondwest text-5xl md:text-7xl`}>Upload Blob</h1>
+        <p className={`font-montreal max-w-[530px] text-[#F7F7F7] mb-4 text-lg text-center`}>
           Upload blobs to Walrus, and display them on this page. See the <Link href="https://docs.wal.app" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">Walrus documentation</Link> for more information. The file size is limited to 10 MiB on the default publisher. Use the <Link href="https://docs.wal.app/usage/client-cli.html" className="text-[#C684F6] underline" target="_blank" rel="noopener noreferrer">CLI tool</Link> to store bigger files.
         </p>
 

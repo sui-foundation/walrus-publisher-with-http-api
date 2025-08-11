@@ -1,5 +1,4 @@
 import * as React from "react";
-import { montreal } from "@/lib/fonts";
 
 import discordIcon from "@/public/icons/discord-lg.svg";
 import twitterIcon from "@/public/icons/x.svg";
@@ -54,11 +53,11 @@ export const Footer = () => {
     <div className="flex flex-col xl:flex-row gap-4">
       {/* Links */}
       <div
-        className={`bg-[#0C0F1D] xl:flex-1 rounded-2xl grid grid-cols-2 text-[##F7F7F7] ${montreal.className} py-10 px-10 gap-10`}
+        className={`bg-[#0C0F1D] xl:flex-1 rounded-2xl grid grid-cols-2 text-[##F7F7F7] font-montreal py-10 px-10 gap-10`}
       >
         {links.map((link, idx) => (
           <Link  key={idx} href={link.link} target="_blank" rel="noopener noreferrer">
-            <span className={`text-lg text-center md:text-left ${montreal.className} hover:underline hover:text-[#97F0E5] hover:cursor-pointer`}>
+            <span className={`text-lg text-center md:text-left font-montreal hover:underline hover:text-[#97F0E5] hover:cursor-pointer`}>
               {link.title}
             </span>
           </Link>
